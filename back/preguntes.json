@@ -1,0 +1,265 @@
+
+{
+    "preguntes":[
+       {
+          "pregunta":"Quin és l'equivalent en anglès de la senyal de trànsit 'STOP'?",
+          "resposta_correcta":"STOP",
+          "respostes_incorrectes":[
+             "YIELD",
+             "Caution",
+             "Proceed"
+          ],
+          "imatge":"Fotos/stop.jpg"
+       },
+       {
+          "pregunta":"Quina és la velocitat màxima permesa en una zona urbana a Espanya?",
+          "resposta_correcta":"50 km/h",
+          "respostes_incorrectes":[
+             "30 km/h",
+             "60 km/h",
+             "80 km/h"
+          ],
+          "imatge":"Fotos/velocidad.jpg"
+       },
+       {
+          "pregunta":"Quina senyal indica que hi ha una zona de construcció?",
+          "resposta_correcta":"Senyal de construcció",
+          "respostes_incorrectes":[
+             "Senyal de perill",
+             "Senyal de desviació",
+             "Senyal de prohibició"
+          ],
+          "imatge":"Fotos/construccio.png"
+       },
+       {
+          "pregunta":"Quina és la distància mínima que s'ha de mantenir amb el vehicle davant a l'autopista?",
+          "resposta_correcta":"2 segons",
+          "respostes_incorrectes":[
+             "1 segon",
+             "3 segons",
+             "4 segons"
+          ],
+          "imatge":"Fotos/distanciaseguridad.jpeg"
+       },
+       {
+          "pregunta":"Quan es pot utilitzar el clàxon en una zona residencial?",
+          "resposta_correcta":"Només en casos d'emergència",
+          "respostes_incorrectes":[
+             "En qualsevol moment",
+             "Per avisar a altres conductors",
+             "Per fer-se notar"
+          ],
+          "imatge":"Fotos/claxon.jpeg"
+       },
+       {
+          "pregunta":"Quina és la funció principal dels llums de boira?",
+          "resposta_correcta":"Millorar la visibilitat en condicions de boira",
+          "respostes_incorrectes":[
+             "Il·luminar el camí en absència de llum",
+             "Reduir l'enlluernament dels altres conductors",
+             "Fer el vehicle més visible de nit"
+          ],
+          "imatge":"Fotos/luzniebla.jpeg"
+       },
+       {
+          "pregunta":"Què significa una senyal de trànsit amb una fletxa que apunta cap avall?",
+          "resposta_correcta":"Que es requereix una parada completa",
+          "respostes_incorrectes":[
+             "Que el trànsit està aturat",
+             "Que es pot continuar sense parar",
+             "Que es poden fer girs a la dreta"
+          ],
+          "imatge":"https://exemple.com/down_arrow_sign.jpg"
+       },
+       {
+          "pregunta":"Com s'ha d'actuar si es veu una senyal de 'Ceda el paso'?",
+          "resposta_correcta":"Reduir la velocitat i cedir el pas als vehicles prioritats",
+          "respostes_incorrectes":[
+             "Parar completament",
+             "Augmentar la velocitat",
+             "Seguir sense aturar-se"
+          ],
+          "imatge":"Fotos/ceda.png"
+       },
+       {
+          "pregunta":"Quin tipus de senyal és una '-' blanc amb un fons vermell?",
+          "resposta_correcta":"Senyal de prohibició",
+          "respostes_incorrectes":[
+             "Senyal d'advertència",
+             "Senyal d'informació",
+             "Senyal d'obligació"
+          ],
+          "imatge":"Fotos/prohibido.png"
+       },
+       {
+          "pregunta":"Quina acció és recomanada si un vehicle davant teu s'atura inesperadament?",
+          "resposta_correcta":"Mantingues una distància segura i frena gradualment",
+          "respostes_incorrectes":[
+             "Frena bruscament",
+             "Canvia de carril immediatament",
+             "Segueix sense canviar la velocitat"
+          ],
+          "imatge":"https://exemple.com/safe_distance.jpg"
+       },
+       {
+          "pregunta":"En una intersecció sense senyals, qui té prioritat?",
+          "resposta_correcta":"El vehicle que entra des de la dreta",
+          "respostes_incorrectes":[
+             "El vehicle que entra des de l'esquerra",
+             "El vehicle que circula recte",
+             "El vehicle que circula més ràpid"
+          ],
+          "imatge":"https://exemple.com/intersection_priority.jpg"
+       },
+       {
+          "pregunta":"Com s'ha de conduir en condicions de pluja intensa?",
+          "resposta_correcta":"Reduir la velocitat i augmentar la distància de seguretat",
+          "respostes_incorrectes":[
+             "Augmentar la velocitat per evitar l'aigua acumulada",
+             "Mantenir la velocitat normal i ajustar els llums",
+             "Seguir sense fer cap canvi en la conducció"
+          ],
+          "imatge":"https://exemple.com/heavy_rain.jpg"
+       },
+       {
+          "pregunta":"Què s'ha de fer quan es veu un semàfor en verd amb una fletxa verda?",
+          "resposta_correcta":"Continua amb precaució en la direcció indicada",
+          "respostes_incorrectes":[
+             "Parar completament",
+             "Girament a l'esquerra",
+             "Accelerar"
+          ],
+          "imatge":"https://exemple.com/green_arrow.jpg"
+       },
+       {
+          "pregunta":"Quan s'ha de posar el senyal de canvi de direcció?",
+          "resposta_correcta":"Abans de canviar de carril o fer un gir",
+          "respostes_incorrectes":[
+             "Després de canviar de carril",
+             "Quan el trànsit és dens",
+             "Només si un altre vehicle ho indica"
+          ],
+          "imatge":"https://exemple.com/turn_signal.jpg"
+       },
+       {
+          "pregunta":"Quina és la funció dels retrovisors en la conducció?",
+          "resposta_correcta":"Permetre veure els vehicles que venen per darrere i als costats",
+          "respostes_incorrectes":[
+             "Illuminar la carretera",
+             "Augmentar la velocitat",
+             "Reduir el soroll del motor"
+          ],
+          "imatge":"https://exemple.com/mirrors.jpg"
+       },
+       {
+          "pregunta":"Quin és el principal perill de conduir amb el telèfon mòbil?",
+          "resposta_correcta":"Disminució de l'atenció i concentració",
+          "respostes_incorrectes":[
+             "Augment de la velocitat",
+             "Millora en la comunicació",
+             "Reducció de l'eficiència del vehicle"
+          ],
+          "imatge":"https://exemple.com/phone_use.jpg"
+       },
+       {
+          "pregunta":"Com s'ha de reaccionar davant una senyal de 'Paret de trànsit'?",
+          "resposta_correcta":"Atura't completament i assegura't que el pas estigui lliure abans de continuar",
+          "respostes_incorrectes":[
+             "Continua sense parar si el camí sembla lliure",
+             "Redueix la velocitat i passa amb precaució",
+             "Avisa amb el clàxon abans de passar"
+          ],
+          "imatge":"https://exemple.com/stop_wall.jpg"
+       },
+       {
+          "pregunta":"Quina acció es recomana si un vehicle et segueix de prop?",
+          "resposta_correcta":"Augmentar la distància de seguretat i mantenir una velocitat constant",
+          "respostes_incorrectes":[
+             "Frena bruscament per fer-lo distanciar",
+             "Augmentar la velocitat per escapar-ne",
+             "Canviar de carril immediatament"
+          ],
+          "imatge":"https://exemple.com/tailgating.jpg"
+       },
+       {
+          "pregunta":"Quan està prohibit l'ús del clàxon en una autopista?",
+          "resposta_correcta":"En zones amb senyalització de prohibició específica",
+          "respostes_incorrectes":[
+             "En tot moment durant la nit",
+             "En condicions de boira",
+             "Quan circules a baixa velocitat"
+          ],
+          "imatge":"https://exemple.com/horn_restriction.jpg"
+       },
+       {
+          "pregunta":"Quina senyal indica una zona escolar?",
+          "resposta_correcta":"Un senyal amb la imatge d'un nen caminant",
+          "respostes_incorrectes":[
+             "Un senyal amb una fletxa ambar",
+             "Un senyal amb un llibre",
+             "Un senyal de velocitat reduïda"
+          ],
+          "imatge":"https://exemple.com/school_zone.jpg"
+       },
+       {
+          "pregunta":"Què cal fer si et trobes amb una senyal de 'No aparcar'?",
+          "resposta_correcta":"No estacionis el vehicle en aquesta zona",
+          "respostes_incorrectes":[
+             "Pot aparcar si hi ha espai",
+             "Pots aparcar si el vehicle és petit",
+             "Pots aparcar només si no hi ha trànsit"
+          ],
+          "imatge":"https://exemple.com/no_parking.jpg"
+       },
+       {
+          "pregunta":"Què indica una línia continua al costat del teu carril?",
+          "resposta_correcta":"No es permet avançar ni canviar de carril",
+          "respostes_incorrectes":[
+             "Es permet avançar si és segur",
+             "Es pot canviar de carril amb precaució",
+             "Es pot aparcar a la vorera"
+          ],
+          "imatge":"https://exemple.com/solid_line.jpg"
+       },
+       {
+          "pregunta":"Quan s'ha de posar els llums de carretera?",
+          "resposta_correcta":"En carreteres fora de zones urbanes durant la nit",
+          "respostes_incorrectes":[
+             "En zones urbanes durant el dia",
+             "Quan plou lleugerament",
+             "En qualsevol condició de visibilitat"
+          ],
+          "imatge":"https://exemple.com/high_beam_lights.jpg"
+       },
+       {
+          "pregunta":"Quin tipus de senyal és una 'senyal d'alerta'?",
+          "resposta_correcta":"Senyal que indica un perill potencial",
+          "respostes_incorrectes":[
+             "Senyal d'informació",
+             "Senyal de prioritat",
+             "Senyal de prohibició"
+          ],
+          "imatge":"https://exemple.com/warning_sign.jpg"
+       },
+       {
+          "pregunta":"Com has de conduir en una rotonda?",
+          "resposta_correcta":"Seguint les indicacions i cedit el pas als vehicles que ja hi són",
+          "respostes_incorrectes":[
+             "Entra sense cedir el pas",
+             "Circula en direcció contrària si el trànsit ho permet",
+             "Frena en el centre de la rotonda"
+          ],
+          "imatge":"https://exemple.com/roundabout.jpg"
+       },
+       {
+          "pregunta":"Quina és la millor manera d'evitar accidents en condicions de neu?",
+          "resposta_correcta":"Reduir la velocitat i augmentar la distància de seguretat",
+          "respostes_incorrectes":[
+             "Aumentar la velocitat per mantenir la tracció",
+             "Utilitzar els llums de carretera",
+             "Evitar els frens al màxim"
+          ],
+          "imatge":"https://exemple.com/snow_conditions.jpg"
+       }
+    ]
+ }
