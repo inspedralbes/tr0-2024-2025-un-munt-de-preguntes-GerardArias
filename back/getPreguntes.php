@@ -1,25 +1,29 @@
 <?php
-//session_start();
-$contPreg=24;
-header(header: 'Content-Type: application/json')
+header('Content-Type: application/json');
+
 $json = file_get_contents('preguntes.json');
 $data = json_decode($json, true);
-$preguntes = $data['preguntes'];
 
-function desordenarPreguntas($preguntes, $contPreg): array{
-    $pregDesord = array();
-    $pregDesord = shuffle($preguntes); 
-    return $pregDesord
-}
+if (isset($data['preguntes'])) {
+    function desordenarPreguntas($preguntes): array {
+        shuffle($preguntes); 
+        return $preguntes;
+    }
 
-$resp=[];
-foreach ($preguntes as $respostes){
-    $resp[]=array(
-        'pregunta' =>$respostes['pregunta']
-        'resposta_correcta' =>$respostes['resposta_correcta']
-        'respostes_incorrectes' =>$respostes['respostes_incorrectes']
-    );
+    $preguntesDesordenades = desordenarPreguntas($data['preguntes']);
+
+    $resp = [];
+    foreach ($preguntesDesordenades as $resposta) {
+        $resp[] = array(
+            'pregunta' => $resposta['pregunta'],
+            'resposta_correcta' => $resposta['resposta_correcta'],
+            'respostes_incorrectes' => $resposta['respostes_incorrectes'],
+            'imatge' => isset($resposta['imatge']) ? $resposta['imatge'] : '' 
+        );
+    }
+
+    echo json_encode(array('preguntes' => $resp));
+} else {
+    echo json_encode(array('error' => 'No se encontraron preguntas en el archivo JSON.'));
 }
-$resp2=json_encode($resp);
-echo $resp2;
 ?>
