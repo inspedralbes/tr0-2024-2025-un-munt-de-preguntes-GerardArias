@@ -1,7 +1,7 @@
 let preguntesGlobal = [];
 let preguntaActual = 0;
 
-fetch('../back/getPreguntes.php')
+fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php')
   .then(function(response) { return response.json(); })
   .then(function(data) {
     preguntesGlobal = data.preguntes;
@@ -29,8 +29,8 @@ function mostrarPregunta(iPregunta) {
 
   htmlString += '</div>';
 
-  //htmlString += '<button onclick="preguntaAnterior()" style="margin-right: 10px;">Anterior</button>';
-  //htmlString += '<button onclick="preguntaSiguiente()">Siguiente</button>';
+  htmlString += '<button class="pasar" onclick="preguntaAnterior()" style="margin-right: 10px;">Anterior</button>';
+  htmlString += '<button class="pasar" onclick="preguntaSiguiente()">Siguiente</button>';
 
   container.innerHTML = htmlString;
 }
@@ -41,12 +41,13 @@ function resposta(iPregunta, iResposta) {
   preguntaSiguiente();
 }
 
-/*function preguntaAnterior() {
+
+function preguntaAnterior() {
   if (preguntaActual > 0) {
     preguntaActual--;
     mostrarPregunta(preguntaActual);
   }
-}*/
+}
 
 function preguntaSiguiente() {
   if (preguntaActual < preguntesGlobal.length - 1) {
