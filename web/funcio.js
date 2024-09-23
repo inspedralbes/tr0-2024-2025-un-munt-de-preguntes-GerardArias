@@ -1,5 +1,6 @@
 let preguntesGlobal = [];
 let preguntaActual = 0;
+let respostesUsuari = []; 
 
 fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php')
   .then(function(response) { return response.json(); })
@@ -24,7 +25,7 @@ function mostrarPregunta(iPregunta) {
   }
 
   respostes.forEach(function(resposta, iResposta) {
-    htmlString += '<button onclick="resposta(' + iPregunta + ', ' + iResposta + ')" style="margin-right: 10px; margin-bottom: 5px;">' + resposta + '</button>';
+    htmlString += '<button onclick="resposta(' + iPregunta + ', \'' + resposta + '\')" style="margin-right: 10px; margin-bottom: 5px;">' + resposta + '</button>';
   });
 
   htmlString += '</div>';
@@ -35,12 +36,11 @@ function mostrarPregunta(iPregunta) {
   container.innerHTML = htmlString;
 }
 
-
-function resposta(iPregunta, iResposta) {
-  console.log('Pregunta: ' + (iPregunta + 1) + ', Resposta: ' + (iResposta + 1));
+function resposta(iPregunta, respostaSeleccionada) {
+  console.log('Pregunta: ' + (iPregunta + 1) + ', Resposta: ' + respostaSeleccionada);
+  respostesUsuari[iPregunta] = respostaSeleccionada; 
   preguntaSiguiente();
 }
-
 
 function preguntaAnterior() {
   if (preguntaActual > 0) {
@@ -53,5 +53,27 @@ function preguntaSiguiente() {
   if (preguntaActual < preguntesGlobal.length - 1) {
     preguntaActual++;
     mostrarPregunta(preguntaActual);
+  } else {
+    enviarResultats();
   }
+}
+
+function enviarResultats() {
+  
+  const resultats = {
+    respostes: respostesUsuari,
+  };
+
+  fetch('finalitza.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(resultats),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Resultats enviats:', data);
+    mostrarResultats(data);
+  })
 }
