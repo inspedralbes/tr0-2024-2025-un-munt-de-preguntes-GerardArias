@@ -1,0 +1,14 @@
+body{
+    background-color: #d6ecdf;
+    text-align: center;
+    padding: 5px;
+    margin: 3px;
+}
+button{
+    background-color: #b6dec1;
+    border: none;
+    margin-top: 3%;
+}
+button:hover{
+    background-color: #c7777f;
+}
