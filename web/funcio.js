@@ -33,7 +33,6 @@ function mostrarPregunta(iPregunta) {
 
     htmlString += '<br><button onclick="preguntaAnterior()">Anterior</button>';
     htmlString += '<button onclick="preguntaSiguiente()">Siguiente</button>';
-    htmlString += '<button class="reset" onclick="resetTest()">Restart</button>';
     htmlString += '</div>';
 
     container.innerHTML = htmlString;
