@@ -1,45 +1,58 @@
 let preguntesGlobal = [];
 let preguntaActual = 0;
-let respostesUsuari = []; 
+let resultats = []; 
 
 fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php')
-  .then(function(response) { return response.json(); })
-  .then(function(data) {
+  .then(response => response.json())
+  .then(data => {
     preguntesGlobal = data.preguntes;
     mostrarPregunta(preguntaActual);
   })
-  .catch(function(error) {
-    console.error('Error carregant les preguntes:', error);
+  .catch(error => {
+    console.error('Error cargando las preguntas:', error);
   });
 
 function mostrarPregunta(iPregunta) {
   let container = document.getElementById('partida');
   let preguntaObj = preguntesGlobal[iPregunta];
-  let respostes = preguntaObj.respostes_incorrectes.concat([preguntaObj.resposta_correcta]).sort(function() { return Math.random() - 0.5; });
 
-  let htmlString = '<div style="margin-bottom: 20px;">';
-  htmlString += '<p><strong>Pregunta ' + (iPregunta + 1) + ':</strong> ' + preguntaObj.pregunta + '</p>';
-  
-  if (preguntaObj.imatge) {
-    htmlString += '<img src="' + preguntaObj.imatge + '" alt="Imatge de la pregunta" style="height: 200px; margin-bottom: 10px;"><br>';
+  if (iPregunta < preguntesGlobal.length) {
+    let respostes = preguntaObj.respostes_incorrectes.concat([preguntaObj.resposta_correcta]).sort(() => Math.random() - 0.5);
+
+    let htmlString = '<div style="margin-bottom: 20px;">';
+    htmlString += `<h2>Pregunta número ${iPregunta + 1}</h2>`;
+    htmlString += `<h3>${preguntaObj.pregunta}</h3>`;
+
+    if (preguntaObj.imatge) {
+      htmlString += `<img src="${preguntaObj.imatge}" alt="Imatge de la pregunta" style="height: 200px; margin-bottom: 10px;"><br>`;
+    }
+
+    respostes.forEach((resposta, j) => {
+      htmlString += `<br><button class="resp" onclick="siguientePregunta(${iPregunta}, '${resposta.replace(/'/g, "\\'")}')">${resposta}</button>`;
+    });
+
+    htmlString += '<br><button onclick="preguntaAnterior()">Anterior</button>';
+    htmlString += '<button onclick="preguntaSiguiente()">Siguiente</button>';
+    htmlString += '<button class="reset" onclick="resetTest()">Restart</button>';
+    htmlString += '</div>';
+
+    container.innerHTML = htmlString;
+  } else {
+    enviarResultats();
   }
-
-  respostes.forEach(function(resposta, iResposta) {
-    htmlString += '<button onclick="resposta(' + iPregunta + ', \'' + resposta + '\')" style="margin-right: 10px; margin-bottom: 5px;">' + resposta + '</button>';
-  });
-
-  htmlString += '</div>';
-
-  htmlString += '<button class="pasar" onclick="preguntaAnterior()" style="margin-right: 10px;">Anterior</button>';
-  htmlString += '<button class="pasar" onclick="preguntaSiguiente()">Siguiente</button>';
-
-  container.innerHTML = htmlString;
 }
 
-function resposta(iPregunta, respostaSeleccionada) {
-  console.log('Pregunta: ' + (iPregunta + 1) + ', Resposta: ' + respostaSeleccionada);
-  respostesUsuari[iPregunta] = respostaSeleccionada; 
-  preguntaSiguiente();
+function siguientePregunta(iPregunta, respostaSeleccionada) {
+  let esCorrecta = respostaSeleccionada === preguntesGlobal[iPregunta].resposta_correcta;
+
+  resultats[iPregunta] = {
+    pregunta: preguntesGlobal[iPregunta].pregunta,
+    resposta_seleccionada: respostaSeleccionada,
+    correcta: esCorrecta
+  };
+
+  preguntaActual++;
+  mostrarPregunta(preguntaActual);
 }
 
 function preguntaAnterior() {
@@ -50,7 +63,7 @@ function preguntaAnterior() {
 }
 
 function preguntaSiguiente() {
-  if (preguntaActual < preguntesGlobal.length - 1) {
+  if (preguntaActual + 1 < preguntesGlobal.length) {
     preguntaActual++;
     mostrarPregunta(preguntaActual);
   } else {
@@ -59,21 +72,35 @@ function preguntaSiguiente() {
 }
 
 function enviarResultats() {
-  
-  const resultats = {
-    respostes: respostesUsuari,
-  };
+  console.log('Enviando los resultados al servidor:', JSON.stringify(resultats));
 
-  fetch('finalitza.php', {
+  fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/finalitza.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(resultats),
+    body: JSON.stringify({ resultats }),
   })
   .then(response => response.json())
   .then(data => {
     console.log('Resultats enviats:', data);
-    mostrarResultats(data);
+    mostrarResultats();
   })
+  .catch(error => {
+    console.error('Error al enviar los resultados:', error);
+  });
+}
+
+function mostrarResultats() {
+  let container = document.getElementById('resultats');
+  let htmlString = '<h2>Resultats del Cuestionari</h2>';
+
+  resultats.forEach((resultat, index) => {
+    htmlString += `<p><strong>Pregunta ${index + 1}:</strong> ${resultat.pregunta}<br>`;
+    htmlString += `Resposta seleccionada: ${resultat.resposta_seleccionada}<br>`;
+    htmlString += resultat.correcta ? 'Resultado: Correcta' : 'Resultado: Incorrecta';
+    htmlString += '</p>';
+  });
+
+  container.innerHTML = htmlString;
 }

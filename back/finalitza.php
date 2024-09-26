@@ -1,36 +1,39 @@
 <?php
-session_start();
+header('Content-Type: application/json');
 
-if (!isset($_SESSION['resultats'])) {
-    header('Location: index.php');
-    exit;
+$json = file_get_contents('php://input');
+$respostes = json_decode($json, true);
+
+$json2 = file_get_contents("preguntes.json");
+$preg = json_decode($json2, true);
+
+$respostesCorrectes = [];
+foreach($preg["preguntes"] as $rCorrecta){
+    $respostesCorrectes[] = $rCorrecta["resposta_correcta"];
 }
-$puntuacio = $_SESSION['puntuacio'];
-$totalPreguntes = count($_SESSION['preguntes']);
-$resultats = $_SESSION['resultats'];
 
-session_unset();
+$respostaClient = [];
+foreach($respostes["resultats"] as $resposta){
+    $respostaClient[] = $resposta["resposta_seleccionada"];
+}
+
+$verificar = [];
+for ($index = 0; $index < count($respostaClient); $index++) { 
+    if ($respostaClient[$index] == $respostesCorrectes[$index]) {
+        $verificar[] = true;
+    } else {
+        $verificar[] = false;
+    }
+}
+
+$mostrarCorreccion = [];
+foreach ($respostes["resultats"] as $index => $respCorr) {
+    $mostrarCorreccion[] = array(
+        'pregunta' => $respCorr['pregunta'],
+        'resposta_seleccionada' => $respCorr['resposta_seleccionada'],
+        'correcte' => $verificar[$index]
+    );
+}
+
+echo json_encode($mostrarCorreccion);
 ?>
-
-<title>Resultats</title>
-</head>
-<body>
-    <h1>Resultat del Joc</h1>
-    <p>Puntuació: <?php echo $puntuacio . '/' . $totalPreguntes; ?></p>
-    <p>Resultats:</p>
-    <ul>
-        <?php 
-        foreach ($resultats as $index => $encertat) {
-            if ($encertat) {
-                $resultado = 'Correcte';
-            } else {
-                $resultado = 'Incorrecte';
-            }
-        ?>
-            <li>Pregunta <?php echo $index + 1; ?>: <?php echo $resultado; ?></li>
-        <?php } ?>
-    </ul>
-    <form method="post" action="index.php">
-        <button name="reiniciar" type="submit">Reiniciar el joc</button>
-    </form>
-</body>
