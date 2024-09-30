@@ -1,38 +1,47 @@
 <?php
-$servername = "localhost"
-$database = "UMDP"
-$username = "Gerard"
+$servername = "localhost";
+$database = "UMDP";
+$username = "Gerard";
 $password = "Gerard1234";
 
+$conn = mysqli_connect($servername, $username, $password, $database);
 header('Content-Type: application/json');
 
 session_start();
 
-$json = file_get_contents('preguntes.json');
-$data = json_decode($json, true);
+$pregBaseD = mysqli_query($conn, "SELECT * FROM preguntes");
 
-if (isset($data['preguntes'])) {
-    function desordenarPreguntas($preguntes): array {
-        shuffle($preguntes);
-        return $preguntes;
-    }
+$info = $pregBaseD->fetch_all(MYSQLI_ASSOC);
 
-    $preguntesDesordenades = desordenarPreguntas($data['preguntes']);
-
-    $_SESSION['preguntes'] = $preguntesDesordenades;
-
-    $resp = [];
-    foreach ($preguntesDesordenades as $resposta) {
-        $resp[] = array(
-            'pregunta' => $resposta['pregunta'],
-            'resposta_correcta' => $resposta['resposta_correcta'],
-            'respostes_incorrectes' => $resposta['respostes_incorrectes'],
-            'imatge' => isset($resposta['imatge']) ? $resposta['imatge'] : '' 
-        );
-    }
-
-    echo json_encode(array('preguntes' => $resp));
-} else {
-    echo json_encode(array('error' => 'No se encontraron preguntas en el archivo JSON.'));
+if (empty($info)) {
+	echo json_encode(array('error' => 'No se encontraron preguntas en la base de datos.'));
+	exit;
 }
+
+function desordenarPreguntas($preguntes): array {
+	shuffle($preguntes);
+	return $preguntes;
+}
+
+$preguntesDesordenades = desordenarPreguntas($info);
+
+$_SESSION['preguntes'] = $preguntesDesordenades;
+
+$resp = [];
+foreach ($preguntesDesordenades as $resposta) {
+	$respostes_incorrectes = json_decode($resposta['respostes_incorrectes'], true);
+
+	$resp[] = array(
+    	'pregunta' => $resposta['pregunta'],
+    	'resposta_correcta' => $resposta['resposta_correcta'],
+    	'respostes_incorrectes' => $respostes_incorrectes,
+    	'imatge' => isset($resposta['imatge']) ? $resposta['imatge'] : ''
+	);
+}
+
+echo json_encode(array('preguntes' => $resp));
+
+$conn->close();
 ?>
+
+

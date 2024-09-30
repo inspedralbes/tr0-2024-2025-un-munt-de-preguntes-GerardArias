@@ -1,8 +1,4 @@
 <?php
-$servername = "localhost"
-$database = "UMDP"
-$username = "Gerard"
-$password = "Gerard1234";
 
 header('Content-Type: application/json');
 
