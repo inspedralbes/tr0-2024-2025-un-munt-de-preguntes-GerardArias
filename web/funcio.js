@@ -1,6 +1,6 @@
 let preguntesGlobal = [];
 let preguntaActual = 0;
-let resultats = []; 
+let resultats = [];
 
 fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php')
   .then(response => response.json())
@@ -28,11 +28,11 @@ function mostrarPregunta(iPregunta) {
     }
 
     respostes.forEach((resposta, j) => {
-      htmlString += `<br><button class="resp" onclick="siguientePregunta(${iPregunta}, '${resposta.replace(/'/g, "\\'")}')">${resposta}</button>`;
+      htmlString += `<br><button class="resp" data-resposta="${resposta.replace(/'/g, "\\'")}" data-pregunta="${iPregunta}">${resposta}</button>`;
     });
 
-    htmlString += '<br><button onclick="preguntaAnterior()">Anterior</button>';
-    htmlString += '<button onclick="preguntaSiguiente()">Siguiente</button>';
+    htmlString += '<br><button id="btn-anterior">Anterior</button>';
+    htmlString += '<button id="btn-seguent">Siguiente</button>';
     htmlString += '</div>';
 
     container.innerHTML = htmlString;
@@ -40,6 +40,22 @@ function mostrarPregunta(iPregunta) {
     enviarResultats();
   }
 }
+
+document.getElementById('partida').addEventListener('click', function(e) {
+  if (e.target.classList.contains('resp')) {
+    let respostaSeleccionada = e.target.getAttribute('data-resposta');
+    let iPregunta = parseInt(e.target.getAttribute('data-pregunta'), 10);
+    siguientePregunta(iPregunta, respostaSeleccionada);
+  }
+
+  if (e.target.id === 'btn-anterior') {
+    preguntaAnterior();
+  }
+
+  if (e.target.id === 'btn-seguent') {
+    preguntaSiguiente();
+  }
+});
 
 function siguientePregunta(iPregunta, respostaSeleccionada) {
   let esCorrecta = respostaSeleccionada === preguntesGlobal[iPregunta].resposta_correcta;
