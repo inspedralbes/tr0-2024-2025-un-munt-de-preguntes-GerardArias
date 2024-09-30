@@ -1,4 +1,9 @@
 <?php
+$servername = "localhost"
+$database = "UMDP"
+$username = "Gerard"
+$password = "Gerard1234";
+
 header('Content-Type: application/json');
 
 session_start();
@@ -8,7 +13,7 @@ $data = json_decode($json, true);
 
 if (isset($data['preguntes'])) {
     function desordenarPreguntas($preguntes): array {
-        shuffle($preguntes); 
+        shuffle($preguntes);
         return $preguntes;
     }
 
