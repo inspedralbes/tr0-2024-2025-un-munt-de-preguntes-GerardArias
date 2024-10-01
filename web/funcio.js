@@ -33,9 +33,11 @@ function mostrarPregunta(iPregunta) {
 
     htmlString += '<br><button id="btn-anterior">Anterior</button>';
     htmlString += '<button id="btn-seguent">Siguiente</button>';
+    htmlString += '<button id="btn-reiniciar" style="margin-left: 10px;">Reiniciar Cuestionario</button>';
     htmlString += '</div>';
 
     container.innerHTML = htmlString;
+    document.getElementById('resultats').style.display = 'none';
   } else {
     enviarResultats();
   }
@@ -54,6 +56,10 @@ document.getElementById('partida').addEventListener('click', function(e) {
 
   if (e.target.id === 'btn-seguent') {
     preguntaSiguiente();
+  }
+
+  if (e.target.id === 'btn-reiniciar') {
+    reiniciarCuestionario();
   }
 });
 
@@ -117,5 +123,32 @@ function mostrarResultats() {
     htmlString += '</p>';
   });
 
+  htmlString += '<button id="btn-reiniciar-resultats">Reiniciar Cuestionario</button>';
   container.innerHTML = htmlString;
+  container.style.display = 'block';
+  document.getElementById('partida').style.display = 'none';
+
+  document.getElementById('btn-reiniciar-resultats').addEventListener('click', reiniciarCuestionario);
+}
+
+function reiniciarCuestionario() {
+  fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: 'reiniciar=true'
+  })
+  .then(response => response.json())
+  .then(data => {
+    preguntesGlobal = data.preguntes;
+    preguntaActual = 0;
+    resultats = [];
+    mostrarPregunta(preguntaActual);
+    document.getElementById('resultats').style.display = 'none';
+    document.getElementById('partida').style.display = 'block';
+  })
+  .catch(error => {
+    console.error('Error al reiniciar el cuestionario:', error);
+  });
 }
