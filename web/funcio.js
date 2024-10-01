@@ -1,6 +1,7 @@
 let preguntesGlobal = [];
 let preguntaActual = 0;
 let resultats = [];
+let tiempoRestante = 30;
 
 fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php')
   .then(response => response.json())
@@ -92,6 +93,19 @@ function preguntaSiguiente() {
   }
 }
 
+const contadorElement = document.getElementById('contador');
+
+const intervalo = setInterval(() => {
+    tiempoRestante--;
+    contadorElement.textContent = tiempoRestante;
+
+    if (tiempoRestante <= 0) {
+        clearInterval(intervalo);
+        enviarResultats();
+        contadorElement.textContent = "¡Tiempo Finalizado!";
+    }
+}, 1000);
+
 function enviarResultats() {
   console.log('Enviando los resultados al servidor:', JSON.stringify(resultats));
 
@@ -144,6 +158,8 @@ function reiniciarCuestionario() {
     preguntesGlobal = data.preguntes;
     preguntaActual = 0;
     resultats = [];
+    tiempoRestante = 30; 
+    contadorElement.textContent = tiempoRestante;
     mostrarPregunta(preguntaActual);
     document.getElementById('resultats').style.display = 'none';
     document.getElementById('partida').style.display = 'block';
