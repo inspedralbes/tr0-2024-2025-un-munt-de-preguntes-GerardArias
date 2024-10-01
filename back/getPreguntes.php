@@ -6,31 +6,27 @@ $password = "Gerard1234";
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 header('Content-Type: application/json');
-header('Cache-Control: no-cache, must-revalidate');
-header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
 
 session_start();
 
 function obtenerPreguntas($conn): array {
     $pregBaseD = mysqli_query($conn, "SELECT * FROM preguntes");
-    if (!$pregBaseD) {
-        return [];
-    }
     $info = $pregBaseD->fetch_all(MYSQLI_ASSOC);
+    
+    // Desordenar preguntas
     shuffle($info);
+    
+    // Almacenar en la sesión
     $_SESSION['preguntes'] = $info;
+    
     return $info;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reiniciar'])) {
-    session_unset();
-    session_destroy();
-    session_start();
-}
-
-if (!isset($_SESSION['preguntes'])) {
+if (!isset($_SESSION['preguntes']) || isset($_POST['reiniciar'])) {
+    // Si no hay preguntas en la sesión o se solicita reiniciar, obtener nuevas preguntas
     $preguntesDesordenades = obtenerPreguntas($conn);
 } else {
+    // Si ya hay preguntas en la sesión, solo las recuperamos
     $preguntesDesordenades = $_SESSION['preguntes'];
 }
 
