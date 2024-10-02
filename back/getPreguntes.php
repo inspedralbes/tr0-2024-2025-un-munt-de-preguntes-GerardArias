@@ -1,24 +1,14 @@
 <?php
 include 'connect.php';
-
 header('Content-Type: application/json');
 session_start();
 
 function obtenerPreguntas($conn): array {
     $pregBaseD = mysqli_query($conn, "SELECT * FROM preguntes ORDER BY RAND() LIMIT 25");
-    $info = $pregBaseD->fetch_all(MYSQLI_ASSOC);
-    
-    return $info;
+    return $pregBaseD->fetch_all(MYSQLI_ASSOC);
 }
 
-if (!isset($_SESSION['preguntes']) || isset($_POST['reiniciar'])) {
-    $preguntesDesordenades = obtenerPreguntas($conn);
-    $_SESSION['preguntes'] = $preguntesDesordenades; 
-} else {
-    $preguntesDesordenades = $_SESSION['preguntes'];
-}
-
-shuffle($preguntesDesordenades);
+$preguntesDesordenades = obtenerPreguntas($conn);
 
 $resp = [];
 foreach ($preguntesDesordenades as $resposta) {
