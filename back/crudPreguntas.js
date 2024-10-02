@@ -3,7 +3,7 @@ const preguntasListElement = document.getElementById('preguntas-list');
 let preguntas = [];
 
 function cargarPreguntas() {
-  fetch('../back/getPreguntes.php')
+  fetch('../back/modificar.php')
     .then(response => response.json())
     .then(data => {
       preguntas = data.preguntes;
