@@ -100,7 +100,6 @@ const intervalo = setInterval(() => {
     contadorElement.textContent = tiempoRestante;
 
     if (tiempoRestante <= 0) {
-        clearInterval(intervalo);
         enviarResultats();
         contadorElement.textContent = "¡Tiempo Finalizado!";
     }
@@ -148,10 +147,6 @@ function mostrarResultats() {
 function reiniciarCuestionario() {
   fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: 'reiniciar=true'
   })
   .then(response => response.json())
   .then(data => {
