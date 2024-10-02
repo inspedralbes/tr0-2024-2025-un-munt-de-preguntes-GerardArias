@@ -2,12 +2,16 @@ let preguntesGlobal = [];
 let preguntaActual = 0;
 let resultats = [];
 let tiempoRestante = 30;
+let intervalo;
 
-fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php')
+const contadorElement = document.getElementById('contador');
+
+fetch('../back/getPreguntes.php')
   .then(response => response.json())
   .then(data => {
     preguntesGlobal = data.preguntes;
     mostrarPregunta(preguntaActual);
+    iniciarContador();
   })
   .catch(error => {
     console.error('Error cargando las preguntas:', error);
@@ -93,22 +97,26 @@ function preguntaSiguiente() {
   }
 }
 
-const contadorElement = document.getElementById('contador');
+function iniciarContador() {
+  clearInterval(intervalo);
+  
+  tiempoRestante = 30;
+  contadorElement.textContent = tiempoRestante;
 
-const intervalo = setInterval(() => {
+  intervalo = setInterval(() => {
     tiempoRestante--;
     contadorElement.textContent = tiempoRestante;
 
     if (tiempoRestante <= 0) {
-        enviarResultats();
-        contadorElement.textContent = "¡Tiempo Finalizado!";
+      enviarResultats();
+      contadorElement.textContent = "¡Tiempo Finalizado!";
+      clearInterval(intervalo);
     }
-}, 1000);
+  }, 1000);
+}
 
 function enviarResultats() {
-  console.log('Enviando los resultados al servidor:', JSON.stringify(resultats));
-
-  fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/finalitza.php', {
+  fetch('../back/finalitza.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -117,7 +125,6 @@ function enviarResultats() {
   })
   .then(response => response.json())
   .then(data => {
-    console.log('Resultats enviats:', data);
     mostrarResultats();
   })
   .catch(error => {
@@ -145,7 +152,7 @@ function mostrarResultats() {
 }
 
 function reiniciarCuestionario() {
-  fetch('/tr0-2024-2025-un-munt-de-preguntes-GerardArias/back/getPreguntes.php', {
+  fetch('../back/getPreguntes.php', {
     method: 'POST',
   })
   .then(response => response.json())
@@ -153,9 +160,10 @@ function reiniciarCuestionario() {
     preguntesGlobal = data.preguntes;
     preguntaActual = 0;
     resultats = [];
-    tiempoRestante = 30; 
-    contadorElement.textContent = tiempoRestante;
+    
     mostrarPregunta(preguntaActual);
+    iniciarContador();
+    
     document.getElementById('resultats').style.display = 'none';
     document.getElementById('partida').style.display = 'block';
   })

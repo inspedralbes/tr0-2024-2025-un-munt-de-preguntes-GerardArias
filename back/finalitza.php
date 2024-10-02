@@ -16,7 +16,6 @@ if (isset($_SESSION['preguntes'])) {
             'correcte' => $esCorrecta
         );
     }
-    session_destroy();
     echo json_encode($verificar);
 } else {
     echo json_encode(array('error' => 'No se han encontrado preguntas en la sesión.'));
