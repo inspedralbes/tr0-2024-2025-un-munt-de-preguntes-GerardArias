@@ -1,0 +1,25 @@
+body{
+    background-color: #404b4b;
+    text-align: center;
+    padding: 5px;
+    margin: 3%;
+    color: #00dffc;
+}
+img{
+    margin-top: 3%;
+}
+button{
+    background-color: #099aad;
+    border: none;
+
+}
+button:hover{
+    background-color: #008c9e;
+}
+.pasar{
+    background-color: #005f6b;
+    margin: 0%;
+}
+.pasar:hover{
+    background-color: #00b4cc;
+}
